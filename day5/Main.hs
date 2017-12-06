@@ -1,3 +1,5 @@
+{-# LANGUAGE BangPatterns #-}
+
 module Main where
 
 import qualified Data.Map.Strict as M
@@ -14,7 +16,7 @@ main = do
     putStrLn $ "Part 2: Result is " ++ show result2
 
 doStep :: (Int -> Int) -> Int -> Int -> M.Map Int Int -> Int
-doStep incr n pc map = case M.lookup pc map of
+doStep incr !n !pc map = case M.lookup pc map of
         Nothing -> n
         Just x -> doStep incr (n + 1) (pc + x) (M.insert pc (incr x) map)
 
